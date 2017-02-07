@@ -9,25 +9,27 @@ function S = taylorstats(r, f)
 %
 % Input variables:
 %
-%   r:  n x 1 array, values of target variable
+%   r:  n x 1 array, values of reference (observed) variable
 %
 %   f:  n x m array, values of modeled variable, for m different models
 %
 % Output variables:
 %
 %   S:  1 x 1 structure with the following fields; all are 1 x m+1 arrays,
-%       where the first element corresponds to the target data and 2:end
+%       where the first element corresponds to the reference data and 2:end
 %       correspond to the models.
 %
 %       std:    standard deviation, normalized to n.
 %
 %       cor:    correlation coefficient between f and r
 %
+%       rmsd:   root mean squared difference between f and r
+%
 %       rms:    centered pattern RMS
 %
 %       bias:   bias (not needed for plot, but a useful stat
 
-% Copyright 2013 Kelly Kearney
+% Copyright 2013-2017 Kelly Kearney
 
 [npt, nf] = size(f);
 if ~isvector(r) || ~isequal(npt, length(r))
@@ -47,6 +49,10 @@ S.cor(1) = 1;
 for ii = 1:nf
     S.cor(ii+1) = (sum((f(:,ii) - fbar(ii)) .* (r - rbar))./npt)./(S.std(1).*S.std(ii+1));
 end
+
+% RMSD
+
+S.rmsd = sqrt(sum((bsxfun(@minus, f, r)).^2)/npt);
 
 % Centered pattern RMS
 
