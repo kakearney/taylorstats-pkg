@@ -1,5 +1,5 @@
 function S = skillstats(r, f)
-%TAYLORSTATS Calculate statistics needed for a Taylor diagram
+%SKILLSTATS Calculate skill metric statistics for a dataset vs a reference
 %
 % S = skillstats(r, f)
 %
