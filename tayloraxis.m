@@ -115,7 +115,7 @@ y = rr.*sin(th);
 [th,rr] = cart2pol(x,y);
 
 hold(h.ax, 'on');
-h.rmsdline = polarplot(th,rr, 'color', rgb('green'), 'linewidth', 0.1, 'linestyle', ':');
+h.rmsdline = polarplot(th,rr, 'color', [0.082353 0.6902 0.10196], 'linewidth', 0.1, 'linestyle', ':');
 
 
 
