@@ -63,6 +63,13 @@ if ~isvector(r) || ~isequal(npt, length(r))
     error('Length of r (input 1) must match number of rows in f (input 2)');
 end
 
+isn = isnan(r) | any(isnan(f),2);
+if any(isn)
+    warning('NaNs found; corresponding samples removed from both datasets');
+    r = r(~isn);
+    f = f(~isn,:);
+end
+
 % Standard deviation
 
 S.std = [std(r,1) std(f,1)];
